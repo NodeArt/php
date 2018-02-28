@@ -114,7 +114,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 && apk del .build-deps
 
 #Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 #Maxmind GEOIP Database
 ONBUILD RUN rm -rf /usr/local/share/GeoIP/ && wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz \
