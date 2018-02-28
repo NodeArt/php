@@ -1,7 +1,7 @@
-PHP
+# PHP
 Version based on official 7.2 alpine, runned by www-data (82)
 
-Environment variables
+## Environment variables
 ENV TIMEZONE - Default UTC
 ENV PHP_MEMORY_LIMIT - Default 512M
 ENV MAX_UPLOAD - Default 50M
@@ -11,9 +11,8 @@ ENV PHP_DISPLAY_ERRORS - Default On (enabled), acceptable var On,Off
 ENV PHP_LOG_ERRORS - Default On (enabled), acceptable var On,Off
 PHP_ENABLE_XDEBUG - Default 0 (disabled), acceptable var 0,1
 
-Modules Added
-modules added and compiled
+## Modules Added
+### modules added and compiled
 GD, Zip, mysqli, pdo_mysql, gettext, bcmath, mcrypt, intl, opcache, memcached, xdebug, redis, imagick
-
-modules will be compiled on start
+### modules will be compiled on start
 MaxMind-DB-Reader-php
