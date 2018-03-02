@@ -12,7 +12,7 @@ ENV PHP_ENABLE_XDEBUG 0
 ENV PHPIZE_DEPS autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c git
 
 RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories \
-  && apk upgrade --no-cache && apk add --no-cache imagemagick nano shadow \
+  && apk upgrade --no-cache && apk add --no-cache imagemagick nano shadow 
 
 # Set config parameters
 RUN apk add --no-cache --virtual .temp py-pip \
