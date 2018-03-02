@@ -92,7 +92,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 && docker-php-ext-enable redis \
 \
 # PHP imagick
-&& apk add --no-cache imagemagick-libs \
+&& apk add --no-cache imagemagick-libs jpegoptim \
 && apk add --no-cache --virtual .build-deps imagemagick-dev \
 && yes '' | pecl install imagick \
 && docker-php-ext-enable imagick \
