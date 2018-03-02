@@ -11,27 +11,7 @@ ENV PHP_LOG_ERRORS On
 ENV PHP_ENABLE_XDEBUG 0
 ENV PHPIZE_DEPS autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c git
 
-RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories \
-  && apk upgrade --no-cache && apk add --no-cache imagemagick nano shadow 
-
-# Set config parameters
-RUN apk add --no-cache --virtual .temp py-pip \
-  && pip install --no-cache-dir crudini \
-  && crudini --set $PHP_INI_DIR/php.ini Date date.timezone '${TIMEZONE}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP memory_limit '${PHP_MEMORY_LIMIT}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP display_errors '${PHP_DISPLAY_ERRORS}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP log_errors '${PHP_LOG_ERRORS}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP upload_max_filesize '${MAX_UPLOAD}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP max_file_uploads '${PHP_MAX_FILE_UPLOAD}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP post_max_size '${PHP_MAX_POST}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP cgi.fix_pathinfo 0 \
-  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www listen 9000 \
-  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www pm.max_children 20 \
-  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_DATABASE] 'DB_1_ENV_MYSQL_DATABASE' \
-  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_USER] '$DB_1_ENV_MYSQL_USER' \
-  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_PASSWORD] '$DB_1_ENV_MYSQL_PASSWORD' \
-  && crudini --set $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini '' xdebug.default_enable '${PHP_ENABLE_XDEBUG}' \
-  && apk del .temp
+RUN apk upgrade --no-cache && apk add --no-cache imagemagick nano shadow 
 
 # Preparing
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
@@ -113,6 +93,25 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 \
 # Cleaning
 && apk del .build-deps
+
+# Set config parameters
+RUN apk add --no-cache --virtual .temp py-pip \
+  && pip install --no-cache-dir crudini \
+  && crudini --set $PHP_INI_DIR/php.ini Date date.timezone '${TIMEZONE}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP memory_limit '${PHP_MEMORY_LIMIT}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP display_errors '${PHP_DISPLAY_ERRORS}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP log_errors '${PHP_LOG_ERRORS}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP upload_max_filesize '${MAX_UPLOAD}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP max_file_uploads '${PHP_MAX_FILE_UPLOAD}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP post_max_size '${PHP_MAX_POST}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP cgi.fix_pathinfo 0 \
+  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www listen 9000 \
+  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www pm.max_children 20 \
+  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_DATABASE] 'DB_1_ENV_MYSQL_DATABASE' \
+  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_USER] '$DB_1_ENV_MYSQL_USER' \
+  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_PASSWORD] '$DB_1_ENV_MYSQL_PASSWORD' \
+  && crudini --set $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini '' xdebug.default_enable '${PHP_ENABLE_XDEBUG}' \
+  && apk del .temp
 
 #Composer
 #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
