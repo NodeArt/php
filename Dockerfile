@@ -110,7 +110,10 @@ RUN apk add --no-cache --virtual .temp py-pip \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_DATABASE] 'DB_1_ENV_MYSQL_DATABASE' \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_USER] '$DB_1_ENV_MYSQL_USER' \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_PASSWORD] '$DB_1_ENV_MYSQL_PASSWORD' \
-  && crudini --set $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini '' xdebug.default_enable '${PHP_ENABLE_XDEBUG}' \
+  && sed -i 's/^zend_extension/;zend_extension/' $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini \
+  && sed -i "\$i if [ \"\$PHP_ENABLE_XDEBUG\" -eq \"1\" ]; then" /usr/local/bin/docker-php-entrypoint \
+  && sed -i "\$i \  sed -i \'s/^;zend_extension/zend_extension/\' $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" /usr/local/bin/docker-php-entrypoint \
+  && sed -i "\$i fi\n" /usr/local/bin/docker-php-entrypoint \
   && apk del .temp
 
 #Composer
