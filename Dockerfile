@@ -9,6 +9,7 @@ ENV PHP_MAX_POST 100M
 ENV PHP_DISPLAY_ERRORS On
 ENV PHP_LOG_ERRORS On
 ENV PHP_ENABLE_XDEBUG 0
+ENV PHP_EXPOSE_PHP On
 ENV PHPIZE_DEPS autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c git
 
 RUN apk upgrade --no-cache && apk add --no-cache imagemagick nano shadow 
@@ -104,6 +105,7 @@ RUN apk add --no-cache --virtual .temp py-pip \
   && crudini --set $PHP_INI_DIR/php.ini PHP upload_max_filesize '${MAX_UPLOAD}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP max_file_uploads '${PHP_MAX_FILE_UPLOAD}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP post_max_size '${PHP_MAX_POST}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP expose_php = '${PHP_EXPOSE_PHP}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP cgi.fix_pathinfo 0 \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www listen 9000 \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www pm.max_children 20 \
