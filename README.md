@@ -19,9 +19,9 @@ ENV PHP_DISPLAY_ERRORS - Default On (enabled), acceptable var On,Off
 
 ENV PHP_LOG_ERRORS - Default On (enabled), acceptable var On,Off
 
-PHP_ENABLE_XDEBUG - Default 0 (disabled), acceptable var 0,1
+ENV PHP_ENABLE_XDEBUG - Default 0 (disabled), acceptable var 0,1
 
-PHP_EXPOSE_PHP - Default On (enabled), acceptable var On,Off
+ENV PHP_EXPOSE_PHP - Default On (enabled), acceptable var On,Off
 
 ## Modules Added
 ### modules added and compiled
