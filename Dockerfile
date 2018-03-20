@@ -105,7 +105,7 @@ RUN apk add --no-cache --virtual .temp py-pip \
   && crudini --set $PHP_INI_DIR/php.ini PHP upload_max_filesize '${MAX_UPLOAD}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP max_file_uploads '${PHP_MAX_FILE_UPLOAD}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP post_max_size '${PHP_MAX_POST}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP expose_php = '${PHP_EXPOSE_PHP}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP expose_php '${PHP_EXPOSE_PHP}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP cgi.fix_pathinfo 0 \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www listen 9000 \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www pm.max_children 20 \
