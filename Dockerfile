@@ -12,7 +12,7 @@ ENV PHP_ENABLE_XDEBUG 0
 ENV PHP_EXPOSE_PHP On
 ENV PHPIZE_DEPS autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c git
 
-RUN apk upgrade --no-cache && apk add --no-cache imagemagick nano shadow 
+RUN apk upgrade --no-cache && apk add --no-cache bash imagemagick nano shadow 
 
 # Preparing
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
