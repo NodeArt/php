@@ -116,7 +116,11 @@ RUN apk add --no-cache --virtual .temp py-pip \
   && sed -i "\$i if [ \"\$PHP_ENABLE_XDEBUG\" -eq \"1\" ]; then" /usr/local/bin/docker-php-entrypoint \
   && sed -i "\$i \  sed -i \'s/^;zend_extension/zend_extension/\' $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" /usr/local/bin/docker-php-entrypoint \
   && sed -i "\$i fi\n" /usr/local/bin/docker-php-entrypoint \
-  && apk del .temp
+  && apk del .temp \
+  && mkdir /etc/periodic/1min \
+  && sed -i '/^$/d' /etc/crontabs/root \
+  && echo "*       *       *       *       *       run-parts /etc/periodic/1min" >> /etc/crontabs/root \
+  && sed -i -e '$a\' /etc/crontabs/root
 
 #Composer
 #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
