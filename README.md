@@ -5,13 +5,15 @@ Version based on official 7.2 alpine, runned by www-data (82)
 
 ## supported environment variables
 
-ENV TIMEZONE - Default UTC
+ENV PHP_TIMEZONE - Default UTC
 
 ENV PHP_MEMORY_LIMIT - Default 512M
 
-ENV MAX_UPLOAD - Default 50M
+ENV PHP_MAX_UPLOAD - Default 50M
 
 ENV PHP_MAX_FILE_UPLOAD - Default 200
+
+ENV PHP_MAX_EXECUTION_TIME - Deafult 30
 
 ENV PHP_MAX_POST - Default 100M
 
