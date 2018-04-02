@@ -1,10 +1,11 @@
 FROM php:7.2.3-fpm-alpine3.7
 
 # Environments
-ENV TIMEZONE            UTC
+ENV PHP_TIMEZONE        UTC
 ENV PHP_MEMORY_LIMIT    512M
-ENV MAX_UPLOAD          50M
+ENV PHP_MAX_UPLOAD      50M
 ENV PHP_MAX_FILE_UPLOAD 200
+ENV PHP_MAX_EXECUTION_TIME 30
 ENV PHP_MAX_POST 100M
 ENV PHP_DISPLAY_ERRORS On
 ENV PHP_LOG_ERRORS On
@@ -106,7 +107,8 @@ RUN apk add --no-cache --virtual .temp py-pip \
   && crudini --set $PHP_INI_DIR/php.ini PHP max_file_uploads '${PHP_MAX_FILE_UPLOAD}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP post_max_size '${PHP_MAX_POST}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP expose_php '${PHP_EXPOSE_PHP}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP cgi.fix_pathinfo 0 \
+  && crudini --set $PHP_INI_DIR/php.ini PHP max_execution_time '${PHP_MAX_EXECUTION_TIME}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP cgi.fix_pathinfo 0 \ 
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www listen 9000 \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www pm.max_children 20 \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_DATABASE] 'DB_1_ENV_MYSQL_DATABASE' \
