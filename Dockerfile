@@ -1,4 +1,5 @@
-FROM php:7.2.3-fpm-alpine3.7
+FROM composer:latest
+FROM php:7.2-fpm-alpine3.7
 
 # Environments
 ENV PHP_TIMEZONE        UTC
@@ -12,6 +13,7 @@ ENV PHP_LOG_ERRORS On
 ENV PHP_ENABLE_XDEBUG 0
 ENV PHP_EXPOSE_PHP On
 ENV PHPIZE_DEPS autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c git
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
 RUN apk upgrade --no-cache && apk add --no-cache bash imagemagick nano shadow 
 
@@ -143,4 +145,5 @@ RUN apk add --no-cache --virtual .temp py-pip \
   && sed -i -e '$a\' /etc/crontabs/root
 
 #Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=0 /usr/bin/composer /usr/bin/composer
+RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative
