@@ -2,18 +2,18 @@ FROM composer:latest
 FROM php:7.2-fpm-alpine3.7
 
 # Environments
-ENV PHP_TIMEZONE        UTC
-ENV PHP_MEMORY_LIMIT    512M
-ENV PHP_MAX_UPLOAD      50M
-ENV PHP_MAX_FILE_UPLOAD 200
-ENV PHP_MAX_EXECUTION_TIME 30
-ENV PHP_MAX_POST 100M
-ENV PHP_DISPLAY_ERRORS On
-ENV PHP_LOG_ERRORS On
-ENV PHP_ENABLE_XDEBUG 0
-ENV PHP_EXPOSE_PHP On
-ENV PHPIZE_DEPS autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c git
-ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV PHP_TIMEZONE             = UTC \
+    PHP_MEMORY_LIMIT         = 512M \
+    PHP_MAX_UPLOAD           = 50M \
+    PHP_MAX_FILE_UPLOAD      = 200 \
+    PHP_MAX_EXECUTION_TIME   = 30 \
+    PHP_MAX_POST             = 100M \
+    PHP_DISPLAY_ERRORS       = On \
+    PHP_LOG_ERRORS           = On \
+    PHP_ENABLE_XDEBUG        = 0 \
+    PHP_EXPOSE_PHP           = On \
+    PHPIZE_DEPS              = autoconf\ dpkg-dev\ dpkg\ file\ g++\ gcc\ libc-dev\ make\ pkgconf\ re2c\ git \
+    COMPOSER_ALLOW_SUPERUSER = 1
 
 RUN apk upgrade --no-cache && apk add --no-cache bash imagemagick nano shadow 
 
