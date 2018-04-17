@@ -93,6 +93,24 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 && rm -r MaxMind-DB-Reader-php \
 && docker-php-ext-enable maxminddb \
 \
+#Maxmind GEOIP Database
+&& rm -rf /usr/local/share/GeoIP/ && wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz \
+  && gunzip -f GeoLite2-Country.mmdb.gz \
+  && ( \
+    mkdir -p /usr/local/share/GeoIP/ \
+    && cp -f GeoLite2-Country.mmdb /usr/local/share/GeoIP/ \
+  ) \
+  && rm -rf GeoLite2-Country.mmdb \
+\
+#Maxmind GEOIP Database
+&& wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz \
+  && gunzip -f GeoLite2-City.mmdb.gz \
+  && ( \
+    mkdir -p /usr/local/share/GeoIP/ \
+    && cp -f GeoLite2-City.mmdb /usr/local/share/GeoIP/ \
+  ) \
+  && rm -rf GeoLite2-City.mmdb \
+\
 # Cleaning
 && apk del .build-deps
 
@@ -126,21 +144,3 @@ RUN apk add --no-cache --virtual .temp py-pip \
 
 #Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-#Maxmind GEOIP Database
-ONBUILD RUN rm -rf /usr/local/share/GeoIP/ && wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz \
-  && gunzip -f GeoLite2-Country.mmdb.gz \
-  && ( \
-    mkdir -p /usr/local/share/GeoIP/ \
-    && cp -f GeoLite2-Country.mmdb /usr/local/share/GeoIP/ \
-  ) \
-  && rm -rf GeoLite2-Country.mmdb
-
-#Maxmind GEOIP Database
-ONBUILD RUN wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz \
-  && gunzip -f GeoLite2-City.mmdb.gz \
-  && ( \
-    mkdir -p /usr/local/share/GeoIP/ \
-    && cp -f GeoLite2-City.mmdb /usr/local/share/GeoIP/ \
-  ) \
-  && rm -rf GeoLite2-City.mmdb
