@@ -27,7 +27,5 @@ ENV PHP_EXPOSE_PHP - Default On (enabled), acceptable var On,Off
 
 ## Modules Added
 ### modules added and compiled
-GD, Zip, mysqli, pdo_mysql, gettext, bcmath, mcrypt, intl, opcache, memcached, xdebug, redis, imagick
-### modules will be compiled on start
-MaxMind-DB-Reader-php
+GD, Zip, mysqli, pdo_mysql, gettext, bcmath, mcrypt, intl, opcache, memcached, xdebug, redis, imagick, ioncube, MaxMind-DB-Reader-php
 
