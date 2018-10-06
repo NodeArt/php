@@ -154,3 +154,4 @@ RUN apk add --no-cache --virtual .temp py-pip \
 #Composer
 COPY --from=0 /usr/bin/composer /usr/bin/composer
 RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative
+
