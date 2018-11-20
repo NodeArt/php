@@ -126,11 +126,11 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 # Set config parameters
 RUN apk add --no-cache --virtual .temp py-pip \
   && pip install --no-cache-dir crudini \
-  && crudini --set $PHP_INI_DIR/php.ini Date date.timezone '${TIMEZONE}' \
+  && crudini --set $PHP_INI_DIR/php.ini Date date.timezone '${PHP_TIMEZONE}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP memory_limit '${PHP_MEMORY_LIMIT}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP display_errors '${PHP_DISPLAY_ERRORS}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP log_errors '${PHP_LOG_ERRORS}' \
-  && crudini --set $PHP_INI_DIR/php.ini PHP upload_max_filesize '${MAX_UPLOAD}' \
+  && crudini --set $PHP_INI_DIR/php.ini PHP upload_max_filesize '${PHP_MAX_UPLOAD}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP max_file_uploads '${PHP_MAX_FILE_UPLOAD}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP post_max_size '${PHP_MAX_POST}' \
   && crudini --set $PHP_INI_DIR/php.ini PHP expose_php '${PHP_EXPOSE_PHP}' \
