@@ -1,5 +1,5 @@
 FROM composer:latest
-FROM php:7.2.14-fpm-alpine3.8
+FROM php:7.2.16-fpm-alpine3.8
 
 # Environments
 ENV PHP_TIMEZONE UTC
