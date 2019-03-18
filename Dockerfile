@@ -138,8 +138,8 @@ RUN apk add --no-cache --virtual .temp py-pip \
   && crudini --set $PHP_INI_DIR/php.ini PHP cgi.fix_pathinfo 0 \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www listen 9000 \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www pm.max_children 20 \
-  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www pm.status_path = /status \
-  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www catch_workers_output = yes \
+  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www pm.status_path /status \
+  && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www catch_workers_output yes \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_DATABASE] 'DB_1_ENV_MYSQL_DATABASE' \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_USER] '$DB_1_ENV_MYSQL_USER' \
   && crudini --set $PHP_INI_DIR/../php-fpm.d/www.conf www env[DB_1_ENV_MYSQL_PASSWORD] '$DB_1_ENV_MYSQL_PASSWORD' \
