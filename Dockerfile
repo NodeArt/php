@@ -1,5 +1,5 @@
 FROM composer:latest
-FROM php:7.2.16-fpm-alpine3.8
+FROM php:7.2.25-fpm-alpine3.10
 
 # Environments
 ENV PHP_TIMEZONE UTC
@@ -49,7 +49,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 \
 # PHP mcrypt
 && apk add --no-cache libmcrypt \
-&& apk add --no-cache --virtual .build-deps libmcrypt-dev \
+&& apk add --no-cache --virtual .build-deps $PHPIZE_DEPS libmcrypt-dev \
 && yes '' | pecl install -f mcrypt \
 && docker-php-ext-enable mcrypt \
 \
@@ -63,7 +63,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 \
 # PHP memcached
 && apk add --no-cache libmemcached \
-&& apk add --no-cache --virtual .build-deps libmemcached-dev zlib-dev cyrus-sasl-dev \
+&& apk add --no-cache --virtual .build-deps $PHPIZE_DEPS libmemcached-dev zlib-dev cyrus-sasl-dev \
 && yes '' | pecl install memcached \
 && docker-php-ext-enable memcached \
 \
@@ -77,7 +77,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 \
 # PHP imagick
 && apk add --no-cache imagemagick-libs jpegoptim \
-&& apk add --no-cache --virtual .build-deps imagemagick-dev \
+&& apk add --no-cache --virtual .build-deps $PHPIZE_DEPS imagemagick-dev \
 && yes '' | pecl install imagick \
 && docker-php-ext-enable imagick \
 \
@@ -90,7 +90,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 \
 #MaxMind-DB-Reader-php
 && apk add --no-cache libmaxminddb \
-&& apk add --no-cache --virtual .build-deps libmaxminddb-dev \
+&& apk add --no-cache --virtual .build-deps $PHPIZE_DEPS git libmaxminddb-dev \
 && git clone https://github.com/maxmind/MaxMind-DB-Reader-php.git \
 && ( \
   cd MaxMind-DB-Reader-php/ext \
