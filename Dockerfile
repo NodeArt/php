@@ -1,5 +1,5 @@
 FROM composer:latest
-FROM php:7.2.25-fpm-alpine3.10
+FROM php:7.3.12-fpm-alpine3.10
 
 # Environments
 ENV PHP_TIMEZONE UTC
@@ -27,7 +27,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 && docker-php-ext-install gd \
 \
 # PHP Zip
-&& apk add --no-cache libzip \
+&& apk add --no-cache libzip-dev \
 && apk add --no-cache --virtual .build-deps zlib-dev \
 && docker-php-ext-configure zip \
 && docker-php-ext-install zip \
@@ -84,9 +84,9 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS coreutils \
 # PHP ioncube
 && wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
 && tar -xvvzf ioncube_loaders_lin_x86-64.tar.gz \
-&& mv ioncube/ioncube_loader_lin_7.2.so /usr/local/lib/php/extensions/* \
+&& mv ioncube/ioncube_loader_lin_7.3.so /usr/local/lib/php/extensions/* \
 && rm -Rf ioncube_loaders_lin_x86-64.tar.gz ioncube \
-&& docker-php-ext-enable ioncube_loader_lin_7.2 \
+&& docker-php-ext-enable ioncube_loader_lin_7.3 \
 \
 #MaxMind-DB-Reader-php
 && apk add --no-cache libmaxminddb \
